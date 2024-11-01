@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('decks', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
+        Schema::table('cards', function (Blueprint $table) {
+            $table->foreign('set_code')->references('code')->on('sets')->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('decks');
+        Schema::table('cards', function (Blueprint $table) {
+            $table->dropForeign(['set_code']);
+        });
     }
 };

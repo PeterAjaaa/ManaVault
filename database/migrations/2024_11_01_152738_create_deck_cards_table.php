@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('deck_cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('deck_id')->references('id')->on('decks')->onDelete('cascade');
-            $table->foreignId('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->integer('quantity');
             $table->boolean('is_sideboard');
             $table->timestamps();

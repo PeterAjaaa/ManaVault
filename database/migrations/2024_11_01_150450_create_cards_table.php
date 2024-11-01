@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('cards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('set_code')->references('code')->on('sets')->onDelete('cascade');
+            $table->string('set_code');
+            $table->string('description');
             $table->string('mana_cost');
             $table->string('type_line');
             $table->string('rarity');

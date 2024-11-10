@@ -7,12 +7,21 @@ use Illuminate\Http\Request;
 
 class CardsController extends Controller
 {
+
+    public function search(Request $request)
+    {
+        $search = $request->input('card_name');
+        $cards = Cards::where('name', 'like', '%' . $search . '%')->get();
+        return view('cards.index', compact('cards'));
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $cards = null;
+        return view('cards.index', compact('cards'));
     }
 
     /**

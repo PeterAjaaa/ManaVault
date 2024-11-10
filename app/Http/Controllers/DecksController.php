@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cards;
 use App\Models\Decks;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,19 @@ class DecksController extends Controller
      */
     public function index()
     {
-        //
+        $decks = null;
+        return view('decks.index', compact('decks'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $query = $request->get('query');
+
+        $items = Cards::where('name', 'like', '%' . $query . '%')->paginate(10);
+        return view('items.index', compact('items', 'query'));
     }
 
     /**

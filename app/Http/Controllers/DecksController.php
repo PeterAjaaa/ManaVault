@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cards;
 use App\Models\Decks;
 use Illuminate\Http\Request;
 
 class DecksController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $decks = null;
+        $decks = Decks::all();
         return view('decks.index', compact('decks'));
     }
 
@@ -22,7 +27,9 @@ class DecksController extends Controller
      */
     public function create(Request $request)
     {
-        return view('decks.create');
+
+        $user_id = $request->user()->id;
+        return view('decks.create', compact('user_id'));
     }
 
     /**
@@ -30,7 +37,16 @@ class DecksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'created_by_user_id' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'format' => 'required',
+        ]);
+
+        Decks::create($request->all());
+
+        return redirect()->route('decks.index');
     }
 
     /**
@@ -38,7 +54,7 @@ class DecksController extends Controller
      */
     public function show(Decks $decks)
     {
-        //
+        return view('decks.show', compact('decks'));
     }
 
     /**
@@ -46,7 +62,8 @@ class DecksController extends Controller
      */
     public function edit(Decks $decks)
     {
-        //
+
+        return view('decks.edit', compact('decks'));
     }
 
     /**
@@ -54,7 +71,17 @@ class DecksController extends Controller
      */
     public function update(Request $request, Decks $decks)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'format' => 'required',
+        ]);
+
+        $decks = Decks::where('id', $decks->id)->first();
+        $decks->update($request->except(['_token', '_method', 'created_by_user_id']));
+
+        return redirect()->route('decks.index');
     }
 
     /**
@@ -62,6 +89,7 @@ class DecksController extends Controller
      */
     public function destroy(Decks $decks)
     {
-        //
+        $decks->delete();
+        return redirect()->route('decks.index');
     }
 }

@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function decks()
+    {
+        return $this->hasMany(Decks::class, 'created_by_user_id');
+    }
 }

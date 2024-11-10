@@ -2,8 +2,18 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="row">
-            <div class="col-12 d-flex justify-content-end">
+            <div class="col-12 d-flex justify-content-end mb-3">
                 <a href="/decks/new" class="btn btn-primary">Create new deck</a>
             </div>
         </div>
@@ -13,17 +23,26 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Deck Name</th>
-                                <th scope="col">Created By</th>
+                                <th scope="col" class="text-center">Deck Name</th>
+                                <th scope="col" class="text-center">Deck Description</th>
+                                <th scope="col" class="text-center">Deck Format</th>
+                                <th scope="col" class="text-center">Created By</th>
+                                <th scope="col" class="text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($decks as $deck)
                                 <tr>
-                                    <td><a href="/decks/{{ $deck->deck_id }}">{{ $deck->deck_name }}</a></td>
-                                    <td>{{ $deck->created_by_user_id }}</td>
+                                    <td class="text-center">{{ $deck->name }}</td>
+                                    <td class="text-center">{{ $deck->description }}</td>
+                                    <td class="text-center">{{ $deck->format }}</td>
+                                    <td class="text-center">{{ $deck->user->name }}</td>
+                                    <td class="text-center">
+                                        <a href="/decks/{{ $deck->id }}" class="btn btn-primary me-3">View</a>
+                                        <a href="/decks/{{ $deck->id }}/edit" class="btn btn-primary me-3">Edit</a>
+                                        <a href="/decks/{{ $deck->id }}/delete" class="btn btn-danger me-3">Delete</a>
+                                    </td>
                                 </tr>
-                                <tr>
                             @endforeach
                         </tbody>
                     </table>

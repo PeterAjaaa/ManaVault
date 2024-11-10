@@ -22,10 +22,7 @@ class DecksController extends Controller
      */
     public function create(Request $request)
     {
-        $query = $request->get('query');
-
-        $items = Cards::where('name', 'like', '%' . $query . '%')->paginate(10);
-        return view('items.index', compact('items', 'query'));
+        return view('decks.create');
     }
 
     /**

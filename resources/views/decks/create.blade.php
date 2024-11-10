@@ -34,7 +34,10 @@
                             <option value="Pioneer">Pioneer</option>
                             <option value="Vintage">Vintage</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <label for="decklist">Import Decklist</label>
+                        <textarea id="decklist" name="decklist" rows="10" class="form-control mb-3"
+                            placeholder="Paste your decklist here..." required></textarea>
+                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
                 </form>
             </div>
         </div>

@@ -11,7 +11,7 @@ class CardsController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('card_name');
-        $cards = Cards::where('name', 'like', '%' . $search . '%')->get();
+        $cards = Cards::with('cardSets')->where('name', 'like', '%' . $search . '%')->get();
         return view('cards.index', compact('cards'));
     }
 

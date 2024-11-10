@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cards', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('image_url_front')->nullable();
-            $table->string('image_url_back')->nullable();
-            $table->timestamps();
+        Schema::table('cards', function (Blueprint $table) {
+            $table->foreignId('set_id')->references('id')->on('card_sets')->onDelete('cascade');
         });
     }
 

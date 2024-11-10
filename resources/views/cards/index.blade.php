@@ -30,7 +30,7 @@
                                                 alt="{{ $card->name }} (Back)">
                                         @endif
                                         <h5 class="card-title mt-3">{{ $card->name }}</h5>
-                                        <p class="text-muted">Set: {{ $card->set }}</p>
+                                        <p class="text-muted">Set: {{ $card->cardSets->name }}</p>
                                         <a href="/decks/add/{{ $card->card_id }}" class="btn btn-primary">Add to Deck</a>
                                     </div>
                                 </div>

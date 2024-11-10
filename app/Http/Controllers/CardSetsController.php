@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sets;
+use App\Models\CardSets;
 use Illuminate\Http\Request;
 
-class SetsController extends Controller
+class CardSetsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class SetsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sets $sets)
+    public function show(CardSets $cardSets)
     {
         //
     }
@@ -42,7 +42,7 @@ class SetsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sets $sets)
+    public function edit(CardSets $cardSets)
     {
         //
     }
@@ -50,7 +50,7 @@ class SetsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sets $sets)
+    public function update(Request $request, CardSets $cardSets)
     {
         //
     }
@@ -58,7 +58,7 @@ class SetsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sets $sets)
+    public function destroy(CardSets $cardSets)
     {
         //
     }

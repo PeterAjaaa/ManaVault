@@ -16,10 +16,12 @@ class CardsSeeder extends Seeder
     {
         $json = File::get(database_path('/seeders/cards.json'));
         $cards = json_decode($json, true);
+        $sets = DB::table('card_sets')->pluck('id', 'name')->mapWithKeys(fn($id, $name) => [strtoupper($name) => $id])->toArray();
         $chunkSize = 500;
         $cardData = [];
 
         foreach ($cards as $card) {
+            $setId = $sets[strtoupper($card['set_name'])] ?? null;
             $imageUrlFront = null;
             $imageUrlBack = null;
 
@@ -34,14 +36,16 @@ class CardsSeeder extends Seeder
                 $imageUrlFront = $card['image_uris']['large'] ?? null;
             }
 
-            $cardData[] = [
-                'name' => $card['name'],
-                'set' => $card['set_name'],
-                'image_url_front' => $imageUrlFront,
-                'image_url_back' => $imageUrlBack,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+            if ($setId) {
+                $cardData[] = [
+                    'name' => $card['name'],
+                    'set_id' => $setId,
+                    'image_url_front' => $imageUrlFront,
+                    'image_url_back' => $imageUrlBack,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
 
             if (count($cardData) === $chunkSize) {
                 DB::table('cards')->insert($cardData);

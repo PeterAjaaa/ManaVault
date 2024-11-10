@@ -1,0 +1,54 @@
+Cards
+Stores all unique Magic cards. Each record represents a card in the game.
+Fields might include:
+card_id (Primary Key)
+name
+set
+card_text (ability or flavor text)
+
+Decks
+Stores information about each deck a user creates.
+Fields might include:
+deck_id (Primary Key)
+deck_name
+deck_description
+created_by_user_id (Foreign Key referencing Users table)
+deck_format (e.g., Standard, Commander, Modern)
+
+Users
+Stores information about users who manage decks.
+Fields might include:
+user_id (Primary Key)
+username
+email
+password_hash
+date_joined
+
+Card Sets
+Stores information about each card set (expansion) in Magic: The Gathering.
+Fields might include:
+set_id (Primary Key)
+set_name
+release_date
+set_type (e.g., Core, Expansion, Special)
+
+
+Transactional Tables:
+Deck Cards
+Represents which cards are included in a specific deck. This is a many-to-many relationship between the Decks and Cards tables.
+Fields might include:
+deck_card_id (Primary Key)
+deck_id (Foreign Key referencing Decks)
+card_id (Foreign Key referencing Cards)
+quantity (Number of copies of this card in the deck)
+sideboard (Boolean to indicate if the card is in the sideboard)
+
+Deck Sideboards
+You can have a dedicated Deck Sideboard table to track the cards that are specifically kept in a sideboard for a deck. This is important in formats like Standard or Modern, where players can use sideboards during matches.
+Fields:
+sideboard_id (Primary Key)
+deck_id (Foreign Key referencing Decks)
+card_id (Foreign Key referencing Cards)
+quantity (Number of copies of the card in the sideboard)
+sideboard_position (Optional, to track card positioning within the sideboard)
+notes (Optional notes about why the card is in the sideboard)

@@ -17,4 +17,14 @@ class Decks extends Model
     {
         return $this->belongsTo(User::class, 'created_by_user_id');
     }
+
+    public function deckCards()
+    {
+        return $this->hasMany(DeckCards::class, 'deck_id');
+    }
+
+    public function cards()
+    {
+        return $this->hasManyThrough(Cards::class, DeckCards::class, 'deck_id', 'id', 'id', 'card_id');
+    }
 }

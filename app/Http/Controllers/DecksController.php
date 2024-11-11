@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cards;
 use App\Models\Decks;
+use App\Models\DeckCards;
 use Illuminate\Http\Request;
 
 class DecksController extends Controller
@@ -42,10 +44,30 @@ class DecksController extends Controller
             'name' => 'required',
             'description' => 'required',
             'format' => 'required',
+            'decklist' => 'required',
         ]);
 
-        Decks::create($request->all());
+        $deck = Decks::create($request->except('decklist'));
 
+        $decklist = $request->input('decklist');
+        $lines = explode("\n", $decklist);
+        foreach ($lines as $line) {
+            if (preg_match('/^(\d+)x\s+(.+)$/', trim($line), $matches)) {
+                $quantity = (int)$matches[1];
+                $cardName = trim($matches[2]);
+
+                $card = Cards::where('name', $cardName)->first();
+                if ($card) {
+                    DeckCards::create([
+                        'deck_id' => $deck->id,
+                        'card_id' => $card->id,
+                        'quantity' => $quantity,
+                    ]);
+                } else {
+                    return redirect()->back()->withErrors(["Card '$cardName' not found"]);
+                }
+            }
+        }
         return redirect()->route('decks.index');
     }
 
@@ -54,6 +76,7 @@ class DecksController extends Controller
      */
     public function show(Decks $decks)
     {
+        $decks->load('deckCards.cards');
         return view('decks.show', compact('decks'));
     }
 

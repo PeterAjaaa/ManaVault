@@ -10,4 +10,9 @@ class Cards extends Model
     {
         return $this->belongsTo(CardSets::class, 'set_id');
     }
+
+    public function deckCards()
+    {
+        return $this->hasMany(DeckCards::class, 'card_id');
+    }
 }

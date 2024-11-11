@@ -21,7 +21,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                @if ($decks->cards != null)
+                @if ($decks->deckCards->isNotEmpty())
                     <table class="table">
                         <thead>
                             <tr>
@@ -30,10 +30,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($decks->cards as $card)
+                            @foreach ($decks->deckCards as $deckCard)
                                 <tr>
-                                    <td>{{ $card->card->name }}</td>
-                                    <td>{{ $card->quantity }}</td>
+                                    <td>{{ $deckCard->cards->name }}</td>
+                                    <td>{{ $deckCard->quantity }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

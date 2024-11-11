@@ -12,6 +12,9 @@
             </div>
         @endif
         <div class="row">
+            <div class="col-6 d-flex justify-content-start mb-3">
+                <a href={{ route('decks.index') }} class="btn btn-primary">Back to decks</a>
+            </div>
             <div class="col-12">
                 <form action={{ route('decks.update', $decks->id) }} method="POST">
                     @csrf

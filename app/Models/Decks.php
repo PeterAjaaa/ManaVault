@@ -27,4 +27,9 @@ class Decks extends Model
     {
         return $this->hasManyThrough(Cards::class, DeckCards::class, 'deck_id', 'id', 'id', 'card_id');
     }
+
+    public function sideboards()
+    {
+        return $this->hasMany(DeckSideboards::class, 'deck_id');
+    }
 }

@@ -15,4 +15,9 @@ class Cards extends Model
     {
         return $this->hasMany(DeckCards::class, 'card_id');
     }
+
+    public function sideboards()
+    {
+        return $this->hasMany(DeckSideboards::class, 'card_id');
+    }
 }

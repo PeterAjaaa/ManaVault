@@ -2,6 +2,15 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row">
             <div class="col-12 d-flex justify-content-end">
                 <form action="/cards/search" class="mb-4">
@@ -24,14 +33,13 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <img src="{{ $card->image_url_front ?? 'https://placehold.co/300x420?text=Image+not+found' }}"
-                                            class="card-img-top" alt="{{ $card->name }}">
+                                            class="card-img-top rounded-4" alt="{{ $card->name }}">
                                         @if ($card->image_url_back)
-                                            <img src="{{ $card->image_url_back }}" class="card-img-top mt-3"
+                                            <img src="{{ $card->image_url_back }}" class="card-img-top mt-3 rounded-4"
                                                 alt="{{ $card->name }} (Back)">
                                         @endif
                                         <h5 class="card-title mt-3">{{ $card->name }}</h5>
                                         <p class="text-muted">Set: {{ $card->cardSets->name }}</p>
-                                        <a href="/decks/add/{{ $card->card_id }}" class="btn btn-primary">Add to Deck</a>
                                     </div>
                                 </div>
                             </div>

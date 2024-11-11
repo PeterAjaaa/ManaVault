@@ -11,20 +11,18 @@
                 </ul>
             </div>
         @endif
-
         <div class="row">
             <div class="col-6 d-flex justify-content-start mb-3">
                 <a href={{ route('decks.index') }} class="btn btn-primary">Back to decks</a>
             </div>
-            <div class="col-12">
-                <h1>Deck Name: {{ $decks->name }}</h1>
-                <h2>Description: {{ $decks->description }}</h2>
-                <h3>Created by: {{ $decks->user->name }}</h3>
+            <div class="col-6 d-flex justify-content-end mb-3">
+                <a href={{ route('sideboards.create', $decks) }} class="btn btn-primary">Create new sideboard</a>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                @if ($decks->deckCards->isNotEmpty())
+                <h1>{{ $decks->name }}'s Sideboard</h1>
+                @if ($decks->sideboards->count() > 0)
                     <table class="table">
                         <thead>
                             <tr>
@@ -34,11 +32,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($decks->deckCards as $deckCard)
+                            @foreach ($decks->sideboards as $sideboard)
                                 <tr>
-                                    <td>{{ $deckCard->cards->name }}</td>
-                                    <td>{{ $deckCard->quantity }}</td>
-                                    <td><img src="{{ $deckCard->cards->image_url_front ?? 'https://placehold.co/300x420?text=Image+not+found' }}"
+                                    <td>{{ $sideboard->cards->name }}</td>
+                                    <td>{{ $sideboard->quantity }}</td>
+                                    <td><img src="{{ $sideboard->cards->image_url_front ?? 'https://placehold.co/300x420?text=Image+not+found' }}"
                                             class="w-25 h-25 rounded-4">
                                     </td>
                                 </tr>

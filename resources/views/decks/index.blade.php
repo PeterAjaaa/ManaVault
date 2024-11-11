@@ -28,6 +28,7 @@
                                 <th scope="col" class="text-center">Deck Format</th>
                                 <th scope="col" class="text-center">Created By</th>
                                 <th scope="col" class="text-center">Actions</th>
+                                <th scope="col" class="text-center">Sideboard</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,9 +39,15 @@
                                     <td class="text-center">{{ $deck->format }}</td>
                                     <td class="text-center">{{ $deck->user->name }}</td>
                                     <td class="text-center">
-                                        <a href="/decks/{{ $deck->id }}" class="btn btn-primary me-3">View</a>
-                                        <a href="/decks/{{ $deck->id }}/edit" class="btn btn-primary me-3">Edit</a>
-                                        <a href="/decks/{{ $deck->id }}/delete" class="btn btn-danger me-3">Delete</a>
+                                        <a href="/decks/{{ $deck->id }}" class="btn btn-info">View</a>
+                                        <a href="/decks/{{ $deck->id }}/edit" class="btn btn-warning">Edit</a>
+                                        <a href="/decks/{{ $deck->id }}/delete" class="btn btn-danger">Delete</a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/decks/{{ $deck->id }}/sideboard" class="btn btn-info">View</a>
+                                        <a href="/decks/{{ $deck->id }}/sideboard/edit" class="btn btn-warning">Edit</a>
+                                        <a href="/decks/{{ $deck->id }}/sideboard/delete"
+                                            class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-12">
                 @if ($decks != null)
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Deck Name</th>
@@ -39,15 +39,30 @@
                                     <td class="text-center">{{ $deck->format }}</td>
                                     <td class="text-center">{{ $deck->user->name }}</td>
                                     <td class="text-center">
-                                        <a href="/decks/{{ $deck->id }}" class="btn btn-info">View</a>
-                                        <a href="/decks/{{ $deck->id }}/edit" class="btn btn-warning">Edit</a>
-                                        <a href="/decks/{{ $deck->id }}/delete" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('decks.show', $deck->id) }}" class="btn btn-info">View</a>
+                                        <a href="{{ route('decks.edit', $deck->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('decks.destroy', $deck->id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete this deck?');">
+                                                Delete Deck
+                                            </button>
+                                        </form>
                                     </td>
                                     <td class="text-center">
-                                        <a href="/decks/{{ $deck->id }}/sideboard" class="btn btn-info">View</a>
-                                        <a href="/decks/{{ $deck->id }}/sideboard/edit" class="btn btn-warning">Edit</a>
-                                        <a href="/decks/{{ $deck->id }}/sideboard/delete"
-                                            class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('sideboards.index', $deck->id) }}" class="btn btn-info">View</a>
+                                        <a href="{{ route('sideboards.edit', $deck->id) }}" class="btn btn-warning">Edit</a>
+                                        <form action="{{ route('sideboards.destroy', $deck->id) }}" method="POST"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Are you sure you want to delete ALL sideboards for this deck?');">
+                                                Delete Sideboards
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

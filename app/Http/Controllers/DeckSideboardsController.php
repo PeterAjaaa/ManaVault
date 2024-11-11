@@ -105,9 +105,10 @@ class DeckSideboardsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeckSideboards $deckSideboards)
+    public function destroy(Decks $decks)
     {
-        $deckSideboards->delete();
-        return redirect()->route('decks.index');
+        DeckSideboards::where('deck_id', $decks->id)->delete();
+
+        return redirect()->route('decks.index')->with('success', 'All sideboards for the deck have been deleted.');
     }
 }

@@ -18,17 +18,19 @@
             <div class="col-6 d-flex justify-content-end mb-3">
                 <a href={{ route('sideboards.create', $decks) }} class="btn btn-primary">Create new sideboard</a>
             </div>
+
         </div>
         <div class="row">
             <div class="col-12">
                 <h1>{{ $decks->name }}'s Sideboard</h1>
                 @if ($decks->sideboards->count() > 0)
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Card Name</th>
                                 <th scope="col">Card Quantity</th>
                                 <th scope="col">Image</th>
+                                <th scope="col">Back Image</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,7 +39,10 @@
                                     <td>{{ $sideboard->cards->name }}</td>
                                     <td>{{ $sideboard->quantity }}</td>
                                     <td><img src="{{ $sideboard->cards->image_url_front ?? 'https://placehold.co/300x420?text=Image+not+found' }}"
-                                            class="w-25 h-25 rounded-4">
+                                            class="w-50 rounded-4">
+                                    </td>
+                                    <td><img src="{{ $sideboard->cards->image_url_back ?? 'https://placehold.co/600x915?text=Image+not+found' }}"
+                                            class="w-50 rounded-4">
                                     </td>
                                 </tr>
                             @endforeach
@@ -47,6 +52,8 @@
                     <p class="text-center">No cards found.</p>
                 @endif
             </div>
+        </div>
+        <div class="row">
         </div>
     </div>
 @endsection

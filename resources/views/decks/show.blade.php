@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 @if ($decks->deckCards->isNotEmpty())
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">Card Name</th>

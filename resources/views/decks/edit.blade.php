@@ -33,7 +33,13 @@
                             <option value="Pioneer">Pioneer</option>
                             <option value="Vintage">Vintage</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <textarea id="decklist" name="decklist" rows="10" class="form-control mb-3"
+                            placeholder="Paste your decklist here..." required>
+@foreach ($decks->deckCards as $deckCard)
+{{ $deckCard->quantity }}x {{ $deckCard->cards->name }}
+@endforeach
+</textarea>
+                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
                 </form>
             </div>
         </div>

@@ -99,11 +99,32 @@ class DecksController extends Controller
             'name' => 'required',
             'description' => 'required',
             'format' => 'required',
+            'decklist' => 'required',
         ]);
 
-        $decks = Decks::where('id', $decks->id)->first();
-        $decks->update($request->except(['_token', '_method', 'created_by_user_id']));
+        $deck = Decks::findOrFail($decks->id);
+        $deck->update($request->except(['_token', '_method', 'created_by_user_id', 'decklist']));
+        $deck->deckCards()->delete();
 
+        $decklist = $request->input('decklist');
+        $lines = explode("\n", $decklist);
+
+        foreach ($lines as $line) {
+            if (preg_match('/^(\d+)x\s+(.+)$/', trim($line), $matches)) {
+                $quantity = (int)$matches[1];
+                $cardName = trim($matches[2]);
+
+                $card = Cards::where('name', $cardName)->first();
+                if ($card) {
+                    $deck->deckCards()->create([
+                        'card_id' => $card->id,
+                        'quantity' => $quantity,
+                    ]);
+                } else {
+                    return redirect()->back()->withErrors(["Card '$cardName' not found"]);
+                }
+            }
+        }
         return redirect()->route('decks.index');
     }
 

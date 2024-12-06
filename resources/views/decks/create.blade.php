@@ -33,6 +33,7 @@
                             <option value="Pauper">Pauper</option>
                             <option value="Pioneer">Pioneer</option>
                             <option value="Vintage">Vintage</option>
+                            <option value="Commander">Commander</option>
                         </select>
                         <label for="decklist">Import Decklist</label>
                         <textarea id="decklist" name="decklist" rows="10" class="form-control mb-3"

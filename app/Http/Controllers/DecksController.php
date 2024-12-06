@@ -20,7 +20,7 @@ class DecksController extends Controller
      */
     public function index()
     {
-        $decks = Decks::all();
+        $decks = Decks::where('created_by_user_id', auth()->id())->get();
         return view('decks.index', compact('decks'));
     }
 

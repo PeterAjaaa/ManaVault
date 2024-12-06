@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
+Route::get('/', function () {
+    return redirect('/cards');
+});
+
 Route::get('/cards', [App\Http\Controllers\CardsController::class, 'index'])->name('cards.index');
 Route::get('/cards/search', [App\Http\Controllers\CardsController::class, 'search'])->name('cards.search');
 

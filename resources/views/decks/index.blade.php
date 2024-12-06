@@ -26,7 +26,6 @@
                                 <th scope="col" class="text-center">Deck Name</th>
                                 <th scope="col" class="text-center">Deck Description</th>
                                 <th scope="col" class="text-center">Deck Format</th>
-                                <th scope="col" class="text-center">Created By</th>
                                 <th scope="col" class="text-center">Actions</th>
                                 <th scope="col" class="text-center">Sideboard</th>
                             </tr>
@@ -37,7 +36,6 @@
                                     <td class="text-center">{{ $deck->name }}</td>
                                     <td class="text-center">{{ $deck->description }}</td>
                                     <td class="text-center">{{ $deck->format }}</td>
-                                    <td class="text-center">{{ $deck->user->name }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('decks.show', $deck->id) }}" class="btn btn-info">View</a>
                                         <a href="{{ route('decks.edit', $deck->id) }}" class="btn btn-warning">Edit</a>
